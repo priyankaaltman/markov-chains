@@ -42,39 +42,37 @@ def make_chains(text_string):
 
     chains = {}
 
-    words = text_string.split() # list of words
+    words = text_string.split()  # list of words
 
     for i in range(len(words)-2):
 
         # if key not in dictionary
         the_tuple = (words[i], words[i+1])
         value = [words[i + 2]]
-        
+
         chains[the_tuple] = chains.get(the_tuple, []) + value
-             
+
     return chains
 
 
 def make_text(chains):
     """Return text from chains."""
 
-    key = choice(list(chains)) # chooses random key to start
+    key = choice(list(chains))  # chooses random key to start
 
-    words = list(key)
+    output = list(key)
 
-    while key != ('Sam', 'I'):
+    while key in chains:
 
-        following_word = choice(chains[key]) # chooses random value
-        
-        words.append(following_word)
-        key = (key[-1], following_word) # increments the keys, but one word
+        following_word = choice(chains[key])  # chooses random value
 
-    words.append("am?")
+        output.append(following_word)
+        key = (key[-1], following_word)  # increments the keys, but one word
 
-    return " ".join(words)
+    return " ".join(output)
 
 
-input_path = "green-eggs.txt"
+input_path = "gettysburg.txt"
 
 # Open the file and turn it into one long string
 input_text = open_and_read_file(input_path)
