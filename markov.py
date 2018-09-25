@@ -10,14 +10,9 @@ def open_and_read_file(file_path):
     the file's contents as one string of text.
     """
 
-    f = open(file_path)
-    file = f.read()
-    split_file = file.split("\n")
-    new_string = ""
-    for line in split_file:
-        new_string = new_string + " " + line
-
-    return new_string
+    file = open(file_path).read()
+    
+    return file
 
 
 def make_chains(text_string):
