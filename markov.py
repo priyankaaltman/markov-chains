@@ -17,8 +17,8 @@ def open_and_read_file(file_path):
     return file
 
 
-def make_chains(text_string):
-    """Take input text as string; return dictionary of Markov chains.
+def make_chains(text_string, n):
+    """Take input text and n-gram number as string; return dictionary of Markov chains.
 
     A chain will be a key that consists of a tuple of (word1, word2)
     and the value would be a list of the word(s) that follow those two
@@ -45,45 +45,51 @@ def make_chains(text_string):
     chains = {}
 
     words = text_string.split()  # list of words
+    n = int(n)
 
-    for i in range(len(words)-2):
+    for i in range(len(words)-n):
 
         # if key not in dictionary
-        the_tuple = (words[i], words[i+1])
-        value = [words[i + 2]]
+        the_tuple = tuple(words[i:i+n])
+        value = [words[i + n]]
 
         chains[the_tuple] = chains.get(the_tuple, []) + value
 
     return chains
 
 
-def make_text(chains):
+def make_text(chains, n):
     """Return text from chains."""
 
     key = choice(list(chains))  # chooses random key to start
 
     output = list(key)
 
+    n = int(n)
+
     while key in chains:
 
         following_word = choice(chains[key])  # chooses random value
 
         output.append(following_word)
-        key = (key[-1], following_word)  # increments the keys, but one word
+        key = (key[-(n-1):] + (following_word,))  # increments the keys, but one word
+
 
     return " ".join(output)
 
 
 input_path = sys.argv[1]
 
+n = sys.argv[2]
+
 # Open the file and turn it into one long string
 input_text = open_and_read_file(input_path)
 
 
 # Get a Markov chain
-chains = make_chains(input_text)
+chains = make_chains(input_text, n)  
 
 # Produce random text
-random_text = make_text(chains)
+random_text = make_text(chains, n)
 
 print(random_text)
