@@ -60,7 +60,21 @@ def make_text(chains):
 
     words = []
 
-    # your code goes here
+    key = choice(list(chains)) # chooses random key to start
+
+    while key != ('Sam', 'I'):
+
+        following_word = choice(chains[key]) # chooses random value
+        
+        if words == []:  
+            words.append(key[0])   
+            words.append(key[1])
+        
+        words.append(following_word)
+        key = (key[1], following_word) # increments the keys, but one word
+
+    words.append("am?")
+
 
     return " ".join(words)
 
@@ -73,7 +87,6 @@ input_text = open_and_read_file(input_path)
 
 # Get a Markov chain
 chains = make_chains(input_text)
-print(chains)
 
 # Produce random text
 random_text = make_text(chains)
