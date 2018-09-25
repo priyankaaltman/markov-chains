@@ -42,8 +42,16 @@ def make_chains(text_string):
 
     chains = {}
 
-    # your code goes here
+    words = text_string.split() # list of words
 
+    for i in range(len(words)-2):
+
+        # if key not in dictionary
+        the_tuple = (words[i], words[i+1])
+        value = [words[i + 2]]
+        
+        chains[the_tuple] = chains.get(the_tuple, []) + value
+             
     return chains
 
 
@@ -61,10 +69,11 @@ input_path = "green-eggs.txt"
 
 # Open the file and turn it into one long string
 input_text = open_and_read_file(input_path)
-print(input_text)
+
 
 # Get a Markov chain
 chains = make_chains(input_text)
+print(chains)
 
 # Produce random text
 random_text = make_text(chains)
