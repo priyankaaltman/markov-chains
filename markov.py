@@ -2,6 +2,8 @@
 
 from random import choice
 
+import sys
+
 
 def open_and_read_file(file_path):
     """Take file path as string; return text as string.
@@ -11,7 +13,7 @@ def open_and_read_file(file_path):
     """
 
     file = open(file_path).read()
-    
+
     return file
 
 
@@ -35,7 +37,7 @@ def make_chains(text_string):
 
         >>> chains[('hi', 'there')]
         ['mary', 'juanita']
-        
+
         >>> chains[('there','juanita')]
         [None]
     """
@@ -72,7 +74,7 @@ def make_text(chains):
     return " ".join(output)
 
 
-input_path = "gettysburg.txt"
+input_path = sys.argv[1]
 
 # Open the file and turn it into one long string
 input_text = open_and_read_file(input_path)
@@ -80,7 +82,6 @@ input_text = open_and_read_file(input_path)
 
 # Get a Markov chain
 chains = make_chains(input_text)
-print(chains)
 
 # Produce random text
 random_text = make_text(chains)
