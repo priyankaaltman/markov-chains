@@ -60,12 +60,13 @@ def make_chains(text_string, n):
 
 def make_text(chains, n):
     """Return text from chains."""
-
-    key = choice(list(chains))  # chooses random key to start
+    n = int(n)
+    key = choice(list(chains))
+      # chooses random key to start
+    while not key[0].istitle():
+        key = choice(list(chains))  # chooses random key to start
 
     output = list(key)
-
-    n = int(n)
 
     while key in chains:
 
